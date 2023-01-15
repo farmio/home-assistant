@@ -4,10 +4,10 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import Final
 
+from knx_frontend import locate_dir
 import voluptuous as vol
 from xknx.telegram import Telegram, TelegramDirection
 from xknx.telegram.apci import GroupValueRead, GroupValueResponse, GroupValueWrite
-from xknx_custom_panel import get_knx_ui
 
 from homeassistant.components import panel_custom, websocket_api
 from homeassistant.core import HomeAssistant, callback
@@ -28,14 +28,14 @@ async def register_panel(hass: HomeAssistant) -> None:
     websocket_api.async_register_command(hass, ws_subscribe_telegram)
 
     if DOMAIN not in hass.data.get("frontend_panels", {}):
-        hass.http.register_static_path(URL_BASE, get_knx_ui())
+        hass.http.register_static_path(URL_BASE, locate_dir())
         await panel_custom.async_register_panel(
             hass=hass,
             frontend_url_path=DOMAIN,
             webcomponent_name="knx-panel",
             sidebar_title=DOMAIN.upper(),
             sidebar_icon="mdi:earth",
-            module_url=f"{URL_BASE}",
+            module_url=f"{URL_BASE}/entrypoint.js",
             embed_iframe=True,
             require_admin=True,
         )

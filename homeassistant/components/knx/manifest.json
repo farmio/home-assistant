@@ -3,7 +3,7 @@
   "name": "KNX",
   "config_flow": true,
   "documentation": "https://www.home-assistant.io/integrations/knx",
-  "requirements": ["xknx==2.3.0", "xknx-custom-panel==1.6.6"],
+  "requirements": ["xknx==2.3.0", "knx_frontend==20221026104517"],
   "dependencies": ["websocket_api"],
   "after_dependencies": ["panel_custom"],
   "codeowners": ["@Julius2342", "@farmio", "@marvin-w"],
